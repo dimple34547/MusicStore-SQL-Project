@@ -1,6 +1,5 @@
 /* ============================================================
    SQL QUERY PRACTICE PROJECT
-   Database: Music Store Database
    ============================================================ */
 
 
@@ -27,8 +26,7 @@ FROM invoice;
 /* ============================================================
    3. INVOICES ABOVE THE OVERALL AVERAGE
    Concept: Subquery, AVG()
-   Output: Displays invoices whose amount is greater than
-           the average invoice amount of all invoices.
+   Output: Displays invoices above the average invoice amount.
    ============================================================ */
 
 SELECT *
@@ -42,8 +40,7 @@ WHERE total > (
 /* ============================================================
    4. INVOICES ABOVE THE AVERAGE OF THEIR BILLING COUNTRY
    Concept: Correlated Subquery, AVG()
-   Output: Displays invoices whose amount is greater than the
-           average invoice amount of their billing country.
+   Output: Displays invoices above their country's average.
    ============================================================ */
 
 SELECT *
@@ -58,8 +55,7 @@ WHERE total > (
 /* ============================================================
    5. INVOICES ABOVE THE CUSTOMER'S AVERAGE
    Concept: Correlated Subquery, AVG()
-   Output: Displays invoices whose amount is greater than
-           that customer's average invoice amount.
+   Output: Displays invoices above that customer's average.
    ============================================================ */
 
 SELECT *
@@ -74,7 +70,7 @@ WHERE total > (
 /* ============================================================
    6. CUSTOMERS WHO HAVE NEVER MADE AN INVOICE
    Concept: NOT EXISTS, Subquery
-   Output: Displays customers who do not have any invoice.
+   Output: Displays customers without any invoice.
    ============================================================ */
 
 SELECT c.customerid
@@ -104,8 +100,7 @@ WHERE EXISTS (
 /* ============================================================
    8. AVERAGE INVOICE AMOUNT PER CUSTOMER
    Concept: AVG(), GROUP BY, ORDER BY
-   Output: Displays each customer's average invoice amount
-           from highest to lowest.
+   Output: Displays average invoice amount for each customer.
    ============================================================ */
 
 SELECT
@@ -135,7 +130,7 @@ GROUP BY billingcountry;
 /* ============================================================
    10. DUPLICATE CUSTOMER FIRST NAMES
    Concept: COUNT(), GROUP BY, HAVING
-   Output: Displays first names that appear more than once.
+   Output: Displays first names appearing more than once.
    ============================================================ */
 
 SELECT
@@ -149,8 +144,7 @@ HAVING COUNT(*) > 1;
 /* ============================================================
    11. NUMBER OF CUSTOMERS ASSIGNED TO EACH EMPLOYEE
    Concept: LEFT JOIN, COUNT(), GROUP BY
-   Output: Displays every employee and the number of customers
-           assigned to them.
+   Output: Displays every employee and their customer count.
    ============================================================ */
 
 SELECT
@@ -167,8 +161,7 @@ GROUP BY e.empid, e.firstname, e.lastname;
 /* ============================================================
    12. CUSTOMERS WHO HAVE NO INVOICES
    Concept: LEFT JOIN, IS NULL
-   Output: Displays customers who have never generated
-           an invoice.
+   Output: Displays customers who have no invoices.
    ============================================================ */
 
 SELECT
@@ -184,7 +177,7 @@ WHERE i.invoiceid IS NULL;
 /* ============================================================
    13. TOTAL TRACKS PER ARTIST
    Concept: INNER JOIN, COUNT(), GROUP BY
-   Output: Displays each artist and their total number of tracks.
+   Output: Displays total tracks for each artist.
    ============================================================ */
 
 SELECT
@@ -202,7 +195,7 @@ GROUP BY a.artistid, a.artistname;
 /* ============================================================
    14. ARTIST WITH THE HIGHEST NUMBER OF TRACKS
    Concept: INNER JOIN, COUNT(), GROUP BY, ORDER BY, LIMIT
-   Output: Displays the artist with the highest number of tracks.
+   Output: Displays the artist with the most tracks.
    ============================================================ */
 
 SELECT
@@ -222,7 +215,7 @@ LIMIT 1;
 /* ============================================================
    15. EMPLOYEES WHO DO NOT REPORT TO A MANAGER
    Concept: IS NULL
-   Output: Displays employees who do not have a manager.
+   Output: Displays employees without a manager.
    ============================================================ */
 
 SELECT
@@ -285,9 +278,8 @@ WHERE EXTRACT(MONTH FROM invoicedate) = 2;
 
 /* ============================================================
    19. INVOICES BETWEEN TWO DATES
-   Concept: WHERE, Comparison Operators
-   Output: Displays invoices between January 8 and
-           February 20, 2026.
+   Concept: WHERE, AND, Comparison Operators
+   Output: Displays invoices between two specified dates.
    ============================================================ */
 
 SELECT
@@ -316,7 +308,7 @@ ORDER BY invoice_month DESC;
 /* ============================================================
    21. NUMBER OF INVOICES PER MONTH
    Concept: DATE_TRUNC(), COUNT(), GROUP BY
-   Output: Displays the number of invoices generated each month.
+   Output: Displays invoice count for each month.
    ============================================================ */
 
 SELECT
@@ -330,7 +322,7 @@ ORDER BY invoice_month;
 /* ============================================================
    22. CREATE FULL CUSTOMER NAME
    Concept: CONCAT()
-   Output: Combines first name and last name into full name.
+   Output: Combines first name and last name.
    ============================================================ */
 
 SELECT
@@ -356,8 +348,8 @@ WHERE firstname LIKE 'A%';
 /* ============================================================
    24. TOTAL INVOICE AMOUNT ABOVE AND BELOW 2
    Concept: CASE, SUM(), INNER JOIN, GROUP BY
-   Output: Displays each customer's total invoice amount
-           above 2 and below 2.
+   Output: Displays each customer's invoice totals above and
+           below 2.
    ============================================================ */
 
 SELECT
@@ -386,9 +378,8 @@ GROUP BY c.firstname, c.lastname;
 
 /* ============================================================
    25. AVERAGE INVOICE AMOUNT FOR EACH CUSTOMER
-   Concept: Window Function, AVG() OVER(), PARTITION BY
-   Output: Displays each invoice along with that customer's
-           average invoice amount.
+   Concept: AVG() OVER(), PARTITION BY
+   Output: Displays each invoice with the customer's average.
    ============================================================ */
 
 SELECT
@@ -402,7 +393,7 @@ FROM invoice;
 
 /* ============================================================
    26. CUSTOMER DETAILS WITH AVERAGE INVOICE
-   Concept: INNER JOIN, Window Function, AVG(), PARTITION BY
+   Concept: INNER JOIN, AVG() OVER(), PARTITION BY
    Output: Displays customer details, invoice amount and
            customer average invoice amount.
    ============================================================ */
@@ -423,8 +414,8 @@ INNER JOIN invoice AS i
 /* ============================================================
    27. CUSTOMER TOTAL SPEND AND OVERALL SALES
    Concept: SUM(), COUNT(), Window Function, SUM() OVER()
-   Output: Displays customer total spending, invoice count
-           and overall sales.
+   Output: Displays customer spending, invoice count and
+           overall sales.
    ============================================================ */
 
 SELECT
@@ -443,7 +434,8 @@ ORDER BY total_spend DESC, invoice_count DESC;
 /* ============================================================
    28. PREVIOUS INVOICE AMOUNT
    Concept: LAG(), Window Function, PARTITION BY, ORDER BY
-   Output: Displays the previous invoice amount for each customer.
+   Output: Displays the previous invoice amount for each
+           customer.
    ============================================================ */
 
 SELECT
@@ -465,8 +457,8 @@ ORDER BY c.customerid, i.invoicedate;
 /* ============================================================
    29. ROW NUMBER WITHIN EACH LAST NAME
    Concept: ROW_NUMBER(), Window Function, PARTITION BY
-   Output: Assigns a sequential row number to customers
-           within each last name.
+   Output: Assigns sequential row numbers within each
+           last name.
    ============================================================ */
 
 SELECT
@@ -513,7 +505,7 @@ ORDER BY customer_rank;
 /* ============================================================
    31. TOP 7 CUSTOMERS BY TOTAL SPENDING
    Concept: CTE, RANK(), Window Function
-   Output: Displays customers whose rank is 7 or better.
+   Output: Displays customers with rank 7 or better.
    ============================================================ */
 
 WITH customer_spending AS (
@@ -554,8 +546,8 @@ ORDER BY customer_rank;
 /* ============================================================
    32. CUSTOMERS SPENDING ABOVE THE OVERALL AVERAGE
    Concept: CTE, AVG() OVER(), Window Function
-   Output: Displays customers whose total spending is greater
-           than the average spending of all customers.
+   Output: Displays customers whose total spending is above
+           the average spending of all customers.
    ============================================================ */
 
 WITH customer_spending AS (
